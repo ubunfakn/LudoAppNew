@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Ludo_App",
+    "slug": "Ludo",
+    "version": "1.0.0",
+    "scheme": "ludo",
+    "android": {
+      "package": "com.railworld.ludo",
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "MEDIA_LIBRARY"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "com.railworld.ludo"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5f356f88-0936-400c-9fd1-ce9d3db89916"
+      }
+    }
+  }
+}
