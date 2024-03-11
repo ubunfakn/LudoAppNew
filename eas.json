@@ -2,27 +2,6 @@
   "cli": {
     "version": ">= 5.9.1"
   },
-  // "build": {
-  //   "development": {
-  //     "distribution": "internal",
-  //     "android": {
-  //       "gradleCommand": ":app:assembleDebug",
-  //       "buildType": "apk"
-  //     },
-  //     "ios": {
-  //       "buildConfiguration": "Debug"
-  //     }
-  //   },
-  //   "preview": {
-  //     "distribution": "internal"
-  //   },
-  //   "production": {}
-  // },
-  // "submit": {
-  //   "production": {
-      
-  //   }
-  // }
   "build": {
     "preview": {
       "android": {

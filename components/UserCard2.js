@@ -24,8 +24,8 @@ export default function UserCard2() {
                 <View style={styles.img}>
                     <Image style={styles.card_img} source={require('../assets/card_img.jpeg')} />
                     <View style={styles.user}>
-                        <Text style={styles.username}>Ankit Kumar Nashine</Text>
-                        <Text style={styles.usernumber}>8602185525</Text>
+                        <Text style={styles.username}>XXXXXXX</Text>
+                        <Text style={styles.usernumber}>YYYYYYYYYYY</Text>
                     </View>
                 </View>
                 <View style={styles.card_last}>

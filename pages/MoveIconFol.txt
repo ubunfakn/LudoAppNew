@@ -1,0 +1,1529 @@
+moveIcon = (player, whichOne, position) => {
+    switch (player) {
+      case 1:
+        if (this.state.whoseTurnToMove == 1 && (!this.state.isMovedBy1)) {
+          switch (whichOne) {
+            case 1:
+              if (this.state.position11 < 0) {
+                if (this.state.currentNumber == 6) {
+                  //this.blinkAnimation.start();
+                  this.setState({ position11: 1 })
+
+                  this.setState({ isMovedBy1: true })
+                  this.setState({ turn1: true })
+                  // this.blinkAnimation.stop();
+                } else {
+                  this.setState({ moveMessage: "" })
+                }
+              } else if (this.state.position11 !== 58) {
+                var currentPosition = this.state.position11;
+                var nextPosition = this.state.currentNumber + currentPosition;
+                if (nextPosition > 57) {
+                  if (nextPosition == 58) {
+                    this.setState({ position11: 58 })
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  //To be Understand
+                  if (this.state.position11 >= 46 && this.state.position11 <= 51) {
+                    if (nextPosition >= 52) {
+                      nextPosition += 1
+                      console.log("in if")
+                    }
+                  }
+                  let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                  let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                  let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                  this.setState({ position11: nextPosition });
+                  if (for2 === true || for3 === true || for4 === true) {
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ isMovedBy1: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn1: true })
+                  }
+                }
+              }
+              break;
+            case 2:
+              if (this.state.position12 < 0) {
+                if (this.state.currentNumber == 6) {
+                  this.setState({ position12: 1 });
+                  this.setState({ isMovedBy1: true })
+                  this.setState({ turn1: true })
+                } else {
+                  this.setState({ moveMessage: "" })
+                }
+              } else if (this.state.position12 !== 58) {
+                var currentPosition = this.state.position12;
+                var nextPosition = this.state.currentNumber + currentPosition;
+                if (nextPosition > 57) {
+                  if (nextPosition == 58) {
+                    this.setState({ position12: 58 })
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  if (this.state.position12 >= 46 && this.state.position12 <= 51) {
+                    if (nextPosition >= 52) {
+                      nextPosition += 1
+                    }
+                  }
+                  let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                  let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                  let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                  this.setState({ position12: nextPosition })
+                  if (for2 === true || for3 === true || for4 === true) {
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ isMovedBy1: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn1: true })
+                  }
+                }
+              }
+              break;
+            case 3:
+              if (this.state.position13 < 0) {
+                if (this.state.currentNumber == 6) {
+                  this.setState({ position13: 1 })
+                  this.setState({ isMovedBy1: true })
+                  this.setState({ turn1: true })
+                } else {
+                  this.setState({ moveMessage: "" })
+                }
+              } else if (this.state.position13 !== 58) {
+                var currentPosition = this.state.position13;
+                var nextPosition = this.state.currentNumber + currentPosition;
+                if (nextPosition > 57) {
+                  if (nextPosition == 58) {
+                    this.setState({ position13: 58 })
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ moveMessage: "" });
+                  }
+                } else {
+                  if (this.state.position13 >= 46 && this.state.position13 <= 51) {
+                    if (nextPosition >= 52) {
+                      nextPosition += 1
+                    }
+                  }
+                  let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                  let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                  let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                  this.setState({ position13: nextPosition })
+                  if (for2 === true || for3 === true || for4 === true) {
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ isMovedBy1: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn1: true })
+                  }
+                }
+              }
+              break;
+            case 4:
+              if (this.state.position14 < 0) {
+                if (this.state.currentNumber == 6) {
+                  this.setState({ position14: 1 })
+                  this.setState({ isMovedBy1: true })
+                  this.setState({ turn1: true })
+                } else {
+                  this.setState({ moveMessage: "" })
+                }
+              } else if (this.state.position14 !== 58) {
+                var currentPosition = this.state.position14;
+                var nextPosition = this.state.currentNumber + currentPosition;
+                if (nextPosition > 57) {
+                  if (nextPosition == 58) {
+                    this.setState({ position14: 58 })
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  if (this.state.position14 >= 46 && this.state.position14 <= 51) {
+                    if (nextPosition >= 52) {
+                      nextPosition += 1
+                    }
+                  }
+                  let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                  let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                  let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                  this.setState({ position14: nextPosition })
+                  if (for2 === true || for3 === true || for4 === true) {
+                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                      this.setState({ isMovedBy3: true })
+                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                      this.setState({ isMovedBy4: true })
+                    }
+                  } else {
+                    this.setState({ isMovedBy1: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn1: true })
+                  }
+                }
+              }
+              break;
+          }
+        } else {
+          this.setState({ moveMessage: "" })
+        }
+        break;
+      case 2:
+        if (this.state.whoseTurnToMove == 2 && (!this.state.isMovedBy2)) {
+          switch (whichOne) {
+            case 1:
+              if (this.state.position21 != 64) {
+                if (this.state.position21 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position21: 14 })
+                    this.setState({ isMovedBy2: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position21;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves);
+                    this.setState({ position21: extraMoves })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else this.setState({ isMovedBy2: true })
+                  } else if (this.state.position21 >= 7 && this.state.position21 <= 12) {
+                    if (nextPosition > 12) {
+                      extraMoves = nextPosition - 12
+                      newPosition = 58 + extraMoves
+                      if (this.state.position21 == 12 && this.state.currentNumber == 6) {
+                        this.setState({ position21: 64 })
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                        // this.setState({ isMovedBy2: true })
+                      } else {
+                        this.setState({ position21: newPosition })
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position21: nextPosition })
+                      if (for1 === true || for3 === true || for4 === true) {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    }
+                  } else if (this.state.position21 >= 59 && this.state.position21 <= 63) {
+                    nextPosition = this.state.position21 + this.state.currentNumber
+                    if (nextPosition == 64) {
+                      this.setState({ position21: 64 })
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else if (nextPosition > 64) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position21: nextPosition })
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position21 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position21: nextPosition })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 2:
+              if (this.state.position22 != 64) {
+                if (this.state.position22 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position22: 14 })
+                    this.setState({ isMovedBy2: true })
+                    this.setState({ turn2: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position22;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position22: extraMoves })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  } else if (this.state.position22 >= 7 && this.state.position22 <= 12) {
+                    if (nextPosition > 12) {
+                      extraMoves = nextPosition - 12
+                      newPosition = 58 + extraMoves
+                      if (this.state.position22 == 12 && this.state.currentNumber == 6) {
+                        this.setState({ position22: 64 })
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                        // this.setState({ isMovedBy2: true })
+                      } else {
+                        this.setState({ position22: newPosition })
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position22: nextPosition })
+                      if (for1 === true || for3 === true || for4 === true) {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    }
+                  } else if (this.state.position22 >= 59 && this.state.position22 <= 63) {
+                    nextPosition = this.state.position22 + this.state.currentNumber
+                    if (nextPosition == 64) {
+                      this.setState({ position22: 64 })
+                      // this.setState({ isMovedBy2: true })
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else if (nextPosition > 64) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position22: nextPosition })
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position22 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position22: nextPosition })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 3:
+              if (this.state.position23 != 64) {
+                if (this.state.position23 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position23: 14 })
+                    this.setState({ isMovedBy2: true })
+                    this.setState({ turn2: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position23;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position23: extraMoves })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  } else if (this.state.position23 >= 7 && this.state.position23 <= 12) {
+                    if (nextPosition > 12) {
+                      extraMoves = nextPosition - 12
+                      newPosition = 58 + extraMoves
+                      if (this.state.position23 == 12 && this.state.currentNumber == 6) {
+                        this.setState({ position23: 64 })
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                        // this.setState({ isMovedBy2: true })
+                      } else {
+                        this.setState({ position23: newPosition })
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position23: nextPosition })
+                      if (for1 === true || for3 === true || for4 === true) {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    }
+                  } else if (this.state.position23 >= 59 && this.state.position23 <= 63) {
+                    nextPosition = this.state.position23 + this.state.currentNumber
+                    if (nextPosition == 64) {
+                      this.setState({ position23: 64 })
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                      // this.setState({ isMovedBy2: true })
+                    } else if (nextPosition > 64) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position23: nextPosition })
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position23 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position23: nextPosition })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 4:
+              if (this.state.position24 != 64) {
+                if (this.state.position24 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position24: 14 })
+                    this.setState({ isMovedBy2: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position24;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position24: extraMoves })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  } else if (this.state.position24 >= 7 && this.state.position24 <= 12) {
+                    if (nextPosition > 12) {
+                      extraMoves = nextPosition - 12
+                      newPosition = 58 + extraMoves
+                      if (this.state.position24 == 12 && this.state.currentNumber == 6) {
+                        this.setState({ position24: 64 })
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                        // this.setState({ isMovedBy2: true })
+                      } else {
+                        this.setState({ position24: newPosition })
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position24: nextPosition })
+                      if (for1 === true || for3 === true || for4 === true) {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    }
+                  } else if (this.state.position24 >= 59 && this.state.position24 <= 63) {
+                    nextPosition = this.state.position24 + this.state.currentNumber
+                    if (nextPosition == 64) {
+                      this.setState({ position24: 64 })
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                      // this.setState({ isMovedBy2: true })
+                    } else if (nextPosition > 64) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position24: nextPosition })
+                      {
+                        this.setState({ isMovedBy2: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                      }
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position24 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position24: nextPosition })
+                    if (for1 === true || for3 === true || for4 === true) {
+                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                      if (!this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy2: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn2: true })
+                    }
+                  }
+                }
+              }
+              break;
+          }
+        } else {
+          this.setState({ moveMessage: "" })
+        }
+        break;
+      case 3:
+        if (this.state.whoseTurnToMove == 3 && (!this.state.isMovedBy3)) {
+          switch (whichOne) {
+            case 1:
+              if (this.state.position31 != 70) {
+                if (this.state.position31 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position31: 27 })
+                    this.setState({ isMovedBy3: true })
+                    this.setState({ turn3: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position31;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position31: extraMoves })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  } else if (this.state.position31 >= 20 && this.state.position31 <= 25) {
+                    if (nextPosition > 25) {
+                      extraMoves = nextPosition - 25
+                      newPosition = 64 + extraMoves
+                      if (this.state.position31 == 25 && this.state.currentNumber == 6) {
+                        this.setState({ position31: 70 })
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                        // this.setState({ isMovedBy3: true })
+                      }
+                      else {
+                        this.setState({ position31: newPosition })
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position31: nextPosition })
+                      if (for1 === true || for2 === true || for4 === true) {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    }
+                  } else if (this.state.position31 >= 65 && this.state.position31 <= 69) {
+                    nextPosition = this.state.position31 + this.state.currentNumber
+                    if (nextPosition == 70) {
+                      this.setState({ position31: 70 })
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                      // this.setState({ isMovedBy3: true })
+                    } else if (nextPosition > 70) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position31: nextPosition })
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position31 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position31: nextPosition })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 2:
+              if (this.state.position32 != 70) {
+                if (this.state.position32 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position32: 27 })
+                    this.setState({ isMovedBy3: true })
+                    this.setState({ turn3: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position32;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position32: extraMoves })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  } else if (this.state.position32 >= 20 && this.state.position32 <= 25) {
+                    if (nextPosition > 25) {
+                      extraMoves = nextPosition - 25
+                      newPosition = 64 + extraMoves
+                      if (this.state.position32 == 25 && this.state.currentNumber == 6) {
+                        this.setState({ position32: 70 })
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                        // this.setState({ isMovedBy3: true })
+                      } else {
+                        this.setState({ position32: newPosition })
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position32: nextPosition })
+                      if (for1 === true || for2 === true || for4 === true) {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    }
+                  } else if (this.state.position32 >= 65 && this.state.position32 <= 69) {
+                    nextPosition = this.state.position32 + this.state.currentNumber
+                    if (nextPosition == 70) {
+                      this.setState({ position32: 70 })
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                      // this.setState({ isMovedBy3: true })
+                    } else if (nextPosition > 70) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position32: nextPosition })
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position32 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position32: nextPosition })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 3:
+              if (this.state.position33 != 70) {
+                if (this.state.position33 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position33: 27 })
+                    this.setState({ isMovedBy3: true })
+                    this.setState({ turn3: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position33;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position33: extraMoves })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  } else if (this.state.position33 >= 20 && this.state.position33 <= 25) {
+                    if (nextPosition > 25) {
+                      extraMoves = nextPosition - 25
+                      newPosition = 64 + extraMoves
+                      if (this.state.position33 == 25 && this.state.currentNumber == 6) {
+                        this.setState({ position33: 70 })
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                        // this.setState({ isMovedBy3: true })
+                      }
+                      else {
+                        this.setState({ position33: newPosition })
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position33: nextPosition })
+                      if (for1 === true || for2 === true || for4 === true) {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    }
+                  } else if (this.state.position33 >= 65 && this.state.position33 <= 69) {
+                    nextPosition = this.state.position33 + this.state.currentNumber
+                    if (nextPosition == 70) {
+                      this.setState({ position33: 70 })
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                      // this.setState({ isMovedBy3: true })
+                    } else if (nextPosition > 70) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position33: nextPosition })
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position33 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                    this.setState({ position33: nextPosition })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 4:
+              if (this.state.position34 != 70) {
+                if (this.state.position34 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position34: 27 })
+                    this.setState({ isMovedBy3: true })
+                    this.setState({ turn3: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position34;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition < 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for4 = this.checkIfCutPossibleFor4(extraMoves)
+                    this.setState({ position34: extraMoves })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  } else if (this.state.position34 >= 20 && this.state.position34 <= 25) {
+                    if (nextPosition > 25) {
+                      extraMoves = nextPosition - 25
+                      newPosition = 64 + extraMoves
+                      if (this.state.position34 == 25 && this.state.currentNumber == 6) {
+                        this.setState({ position34: 70 })
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                        // this.setState({ isMovedBy3: true })
+                      }
+                      else {
+                        this.setState({ position34: newPosition })
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for4 = this.checkIfCutPossibleFor4(nextPosition)
+                      this.setState({ position34: nextPosition })
+                      if (for1 === true || for2 === true || for4 === true) {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy3: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                      }
+                    }
+                  } else if (this.state.position34 >= 65 && this.state.position34 <= 69) {
+                    nextPosition = this.state.position34 + this.state.currentNumber
+                    if (nextPosition == 70) {
+                      this.setState({ position34: 70 })
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                      // this.setState({ isMovedBy3: true })
+                    } else if (nextPosition > 70) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position34: nextPosition })
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position34 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for4 = this.checkIfCutPossibleFor4(nextPosition)
+
+                    this.setState({ position34: nextPosition })
+                    if (for1 === true || for2 === true || for4 === true) {
+                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                        this.setState({ isMovedBy1: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy3: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn3: true })
+                    }
+                  }
+                }
+              }
+              break;
+          }
+        } else {
+          this.setState({ moveMessage: "" })
+        }
+        break;
+      case 4:
+        if (this.state.whoseTurnToMove == 4 && (!this.state.isMovedBy4)) {
+          switch (whichOne) {
+            case 1:
+              if (this.state.position41 != 76) {
+                if (this.state.position41 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position41: 40 })
+                    this.setState({ isMovedBy4: true })
+                    this.setState({ turn4: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position41;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition <= 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves)
+                    this.setState({ position41: extraMoves })
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  } else if (this.state.position41 >= 33 && this.state.position41 <= 38) {
+                    if (nextPosition > 38) {
+                      extraMoves = nextPosition - 38
+                      newPosition = 70 + extraMoves
+                      if (this.state.position41 == 38 && this.state.currentNumber == 6) {
+                        this.setState({ position41: 76 })
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                        // this.setState({ isMovedBy4: true })
+                      }
+                      else {
+                        this.setState({ position41: newPosition })
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                      this.setState({ position41: nextPosition })
+                      if (for1 === true || for2 === true || for3 === true) {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    }
+                  } else if (this.state.position41 >= 71 && this.state.position41 <= 75) {
+                    nextPosition = this.state.position41 + this.state.currentNumber
+                    if (nextPosition == 76) {
+                      this.setState({ position41: 76 })
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                      // this.setState({ isMovedBy4: true })
+                    } else if (nextPosition > 76) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position41: nextPosition })
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position41 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                    this.setState({ position41: nextPosition })
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 2:
+              if (this.state.position42 != 76) {
+                if (this.state.position42 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position42: 40 })
+                    this.setState({ isMovedBy4: true })
+                    this.setState({ turn4: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position42;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition <= 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves)
+                    this.setState({ position42: extraMoves })
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  } else if (this.state.position42 >= 33 && this.state.position42 <= 38) {
+                    if (nextPosition > 38) {
+                      extraMoves = nextPosition - 38
+                      newPosition = 70 + extraMoves
+                      if (this.state.position42 == 38 && this.state.currentNumber == 6) {
+                        this.setState({ position42: 76 })
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                        // this.setState({ isMovedBy4: true })
+                      }
+                      else {
+                        this.setState({ position42: newPosition })
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                      this.setState({ position42: nextPosition })
+                      if (for1 === true || for2 === true || for3 === true) {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    }
+                  } else if (this.state.position42 >= 71 && this.state.position42 <= 75) {
+                    nextPosition = this.state.position42 + this.state.currentNumber
+                    if (nextPosition == 76) {
+                      this.setState({ position41: 76 })
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                      // this.setState({ isMovedBy4: true })
+                    } else if (nextPosition > 76) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position42: nextPosition })
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position42 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                    this.setState({ position42: nextPosition })
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  }
+                }
+              }
+              break;
+            case 3:
+              if (this.state.position43 != 76) {
+                if (this.state.position43 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position43: 40 })
+                    this.setState({ isMovedBy4: true })
+                    this.setState({ turn4: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position43;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition <= 58) {
+                    extraMoves = nextPosition - 52
+                    this.setState({ position43: extraMoves })
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves)
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+
+                  } else if (this.state.position43 >= 33 && this.state.position43 <= 38) {
+                    if (nextPosition > 38) {
+                      extraMoves = nextPosition - 38
+                      newPosition = 70 + extraMoves
+                      if (this.state.position43 == 38 && this.state.currentNumber == 6) {
+                        this.setState({ position43: 76 })
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                        // this.setState({ isMovedBy4: true })
+                      }
+                      else {
+                        this.setState({ position43: newPosition })
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                      this.setState({ position43: nextPosition })
+                      if (for1 === true || for2 === true || for3 === true) {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                      // this.setState({ position43: newPosition })
+                    }
+                  } else if (this.state.position43 >= 71 && this.state.position43 <= 75) {
+                    nextPosition = this.state.position43 + this.state.currentNumber
+                    if (nextPosition == 76) {
+                      this.setState({ position43: 76 })
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                      // this.setState({ isMovedBy4: true })
+                    } else if (nextPosition > 76) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position43: nextPosition })
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                      if (for1 === true || for2 === true || for3 === true) {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position43 + this.state.currentNumber
+                    this.setState({ position43: nextPosition })
+                    this.setState({ isMovedBy4: true })
+                    if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                  }
+                }
+              }
+              break;
+            case 4:
+              if (this.state.position44 != 76) {
+                if (this.state.position44 < 0) {
+                  if (this.state.currentNumber == 6) {
+                    this.setState({ position44: 40 })
+                    this.setState({ isMovedBy4: true })
+                    this.setState({ turn4: true })
+                  } else {
+                    this.setState({ moveMessage: "" })
+                  }
+                } else {
+                  var currentPosition = this.state.position44;
+                  var nextPosition = this.state.currentNumber + currentPosition;
+                  if (nextPosition > 52 && nextPosition <= 58) {
+                    extraMoves = nextPosition - 52
+                    let for1 = this.checkIfCutPossibleFor1(extraMoves);
+                    let for2 = this.checkIfCutPossibleFor2(extraMoves);
+                    let for3 = this.checkIfCutPossibleFor3(extraMoves)
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                    this.setState({ position44: extraMoves })
+                  } else if (this.state.position44 >= 33 && this.state.position44 <= 38) {
+                    if (nextPosition > 38) {
+                      extraMoves = nextPosition - 38
+                      newPosition = 70 + extraMoves
+                      if (this.state.position44 == 38 && this.state.currentNumber == 6) {
+                        this.setState({ position44: 76 })
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                        // this.setState({ isMovedBy4: true })
+                      }
+                      else {
+                        this.setState({ position44: newPosition })
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    } else {
+                      let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                      let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                      let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                      this.setState({ position44: nextPosition })
+                      if (for1 === true || for2 === true || for3 === true) {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
+                      } else {
+                        this.setState({ isMovedBy4: true })
+                        if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                      }
+                    }
+                  } else if (this.state.position44 >= 71 && this.state.position44 <= 75) {
+                    nextPosition = this.state.position44 + this.state.currentNumber
+                    if (nextPosition == 76) {
+                      this.setState({ position44: 76 })
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                      // this.setState({ isMovedBy4: true })
+                    } else if (nextPosition > 76) {
+                      this.setState({ moveMessage: "" })
+                    } else {
+                      this.setState({ position44: nextPosition })
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  }
+                  else {
+                    nextPosition = this.state.position44 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition)
+                    this.setState({ position44: nextPosition })
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
+                  }
+                }
+              }
+              break;
+          }
+        } else {
+          this.setState({ moveMessage: "" })
+        }
+        break;
+    }
+  }

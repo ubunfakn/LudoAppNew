@@ -33,6 +33,10 @@ export default class MultiplayerLudo extends React.Component {
       player: undefined,
       numberFromDice:undefined,
       player1:-1,player2:-1,player3:-1,player4:-1,
+      winCountForOne: 0, winCountForTwo: 0, winCountForThree: 0, winCountForFour: 0,
+      winners: [],
+      showWinPage: false,
+      whoWon: -1
     }
     this.socket = null;
   }
@@ -162,6 +166,7 @@ export default class MultiplayerLudo extends React.Component {
 
 
   moveIcon = (player, whichOne, position) => {
+    // console.log(this.state.winCountForOne, "*****************************")
     switch (player) {
       case 1:
         if (this.state.whoseTurnToMove == 1 && (!this.state.isMovedBy1)) {
@@ -180,28 +185,55 @@ export default class MultiplayerLudo extends React.Component {
                 }
               } else if (this.state.position11 !== 58) {
                 var currentPosition = this.state.position11;
+                if (currentPosition == 51) currentPosition = 52;
                 var nextPosition = this.state.currentNumber + currentPosition;
                 if (nextPosition > 57) {
                   if (nextPosition == 58) {
                     this.setState({ position11: 58 })
-                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
-                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
-                      this.setState({ isMovedBy3: true })
-                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
-                      this.setState({ isMovedBy4: true })
-                    }
+                    this.setState((prevState) => ({ winCountForOne: prevState.winCountForOne + 1 }), () => {
+                      if (this.state.winCountForOne === 4) {
+                        this.setState({ isMovedBy1: true }, () => {
+                          this.setState({ turn1: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn3: true });
+                          else this.setState({ turn2: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player1"],
+                        }));
+                        this.setState({ isMovedBy1: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn2: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn3: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 1 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                        this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                          this.setState({ isMovedBy4: true })
+                        }
+                      }
+                    });
                   } else {
                     this.setState({ moveMessage: "" })
                   }
                 } else {
-                  //To be Understand
-                  if (this.state.position11 >= 46 && this.state.position11 <= 51) {
-                    if (nextPosition >= 52) {
-                      nextPosition += 1
-                      console.log("in if")
-                    }
-                  }
+                  // To be Understand
+                  // if (this.state.position11 >= 46 && this.state.position11 <= 51) {
+                  //   if (nextPosition >= 52) {
+                  //     nextPosition += 1
+                  //     console.log("in if")
+                  //   }
+                  // }
                   let for2 = this.checkIfCutPossibleFor2(nextPosition);
                   let for3 = this.checkIfCutPossibleFor3(nextPosition);
                   let for4 = this.checkIfCutPossibleFor4(nextPosition)
@@ -232,17 +264,45 @@ export default class MultiplayerLudo extends React.Component {
                 }
               } else if (this.state.position12 !== 58) {
                 var currentPosition = this.state.position12;
+                if (currentPosition == 51) currentPosition = 52;
                 var nextPosition = this.state.currentNumber + currentPosition;
                 if (nextPosition > 57) {
                   if (nextPosition == 58) {
                     this.setState({ position12: 58 })
-                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
-                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
-                      this.setState({ isMovedBy3: true })
-                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
-                      this.setState({ isMovedBy4: true })
-                    }
+                    this.setState((prevState) => ({ winCountForOne: prevState.winCountForOne + 1 }), () => {
+                      if (this.state.winCountForOne === 4) {
+                        this.setState({ isMovedBy1: true }, () => {
+                          this.setState({ turn1: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn3: true });
+                          else this.setState({ turn2: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player1"],
+                        }));
+                        this.setState({ isMovedBy1: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn2: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn3: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 1 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                        this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                          this.setState({ isMovedBy4: true })
+                        }
+                      }
+                    });
+
                   } else {
                     this.setState({ moveMessage: "" })
                   }
@@ -282,17 +342,45 @@ export default class MultiplayerLudo extends React.Component {
                 }
               } else if (this.state.position13 !== 58) {
                 var currentPosition = this.state.position13;
+                if (currentPosition == 51) currentPosition = 52;
                 var nextPosition = this.state.currentNumber + currentPosition;
                 if (nextPosition > 57) {
                   if (nextPosition == 58) {
                     this.setState({ position13: 58 })
-                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
-                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
-                      this.setState({ isMovedBy3: true })
-                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
-                      this.setState({ isMovedBy4: true })
-                    }
+                    this.setState((prevState) => ({ winCountForOne: prevState.winCountForOne + 1 }), () => {
+                      if (this.state.winCountForOne === 4) {
+                        this.setState({ isMovedBy1: true }, () => {
+                          this.setState({ turn1: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn3: true });
+                          else this.setState({ turn2: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player1"],
+                        }));
+                        this.setState({ isMovedBy1: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn2: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn3: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 1 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                        this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                          this.setState({ isMovedBy4: true })
+                        }
+                      }
+                    });
+
                   } else {
                     this.setState({ moveMessage: "" });
                   }
@@ -332,17 +420,44 @@ export default class MultiplayerLudo extends React.Component {
                 }
               } else if (this.state.position14 !== 58) {
                 var currentPosition = this.state.position14;
+                if (currentPosition == 51) currentPosition = 52;
                 var nextPosition = this.state.currentNumber + currentPosition;
                 if (nextPosition > 57) {
                   if (nextPosition == 58) {
                     this.setState({ position14: 58 })
-                    this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
-                    this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                    if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
-                      this.setState({ isMovedBy3: true })
-                    } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
-                      this.setState({ isMovedBy4: true })
-                    }
+                    this.setState((prevState) => ({ winCountForOne: prevState.winCountForOne + 1 }), () => {
+                      if (this.state.winCountForOne === 4) {
+                        this.setState({ isMovedBy1: true }, () => {
+                          this.setState({ turn1: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn3: true });
+                          else this.setState({ turn2: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player1"],
+                        }));
+                        this.setState({ isMovedBy1: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn2: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn3: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 1 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy1: false }); this.setState({ whoseTurnToMove: 1 });
+                        this.setState({ turn1: true }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        } else if (this.state.noOfPlayer > 2 && !this.checkIfAnythingOpened(4)) {
+                          this.setState({ isMovedBy4: true })
+                        }
+                      }
+                    });
+
                   } else {
                     this.setState({ moveMessage: "" })
                   }
@@ -411,10 +526,34 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 58 + extraMoves
                       if (this.state.position21 == 12 && this.state.currentNumber == 6) {
                         this.setState({ position21: 64 })
-                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                        if (!this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
+                        this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                        if (this.state.winCountForTwo === 4) {
+                          this.setState({ isMovedBy2: true }, () => {
+                            this.setState({ turn2: false });
+                            if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player2"],
+                          }));
+                          this.setState({ isMovedBy2: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 2 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                          this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                          if (!this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          }
                         }
                         // this.setState({ isMovedBy2: true })
                       } else {
@@ -442,10 +581,34 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position21 + this.state.currentNumber
                     if (nextPosition == 64) {
                       this.setState({ position21: 64 })
-                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                      if (!this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
+                      this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                      if (this.state.winCountForTwo === 4) {
+                        this.setState({ isMovedBy2: true }, () => {
+                          this.setState({ turn2: false });
+                          if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player2"],
+                        }));
+                        this.setState({ isMovedBy2: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 2 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
                       }
                     } else if (nextPosition > 64) {
                       this.setState({ moveMessage: "" })
@@ -510,10 +673,34 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 58 + extraMoves
                       if (this.state.position22 == 12 && this.state.currentNumber == 6) {
                         this.setState({ position22: 64 })
-                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                        if (!this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
+                        this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                        if (this.state.winCountForTwo === 4) {
+                          this.setState({ isMovedBy2: true }, () => {
+                            this.setState({ turn2: false });
+                            if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player2"],
+                          }));
+                          this.setState({ isMovedBy2: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 2 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                          this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                          if (!this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          }
                         }
                         // this.setState({ isMovedBy2: true })
                       } else {
@@ -541,11 +728,35 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position22 + this.state.currentNumber
                     if (nextPosition == 64) {
                       this.setState({ position22: 64 })
+                      this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                      if (this.state.winCountForTwo === 4) {
+                        this.setState({ isMovedBy2: true }, () => {
+                          this.setState({ turn2: false });
+                          if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player2"],
+                        }));
+                        this.setState({ isMovedBy2: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 2 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
                       // this.setState({ isMovedBy2: true })
-                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                      if (!this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
+                      else {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
                       }
                     } else if (nextPosition > 64) {
                       this.setState({ moveMessage: "" })
@@ -610,10 +821,34 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 58 + extraMoves
                       if (this.state.position23 == 12 && this.state.currentNumber == 6) {
                         this.setState({ position23: 64 })
-                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                        if (!this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
+                        this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                        if (this.state.winCountForTwo === 4) {
+                          this.setState({ isMovedBy2: true }, () => {
+                            this.setState({ turn2: false });
+                            if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player2"],
+                          }));
+                          this.setState({ isMovedBy2: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 2 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                          this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                          if (!this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          }
                         }
                         // this.setState({ isMovedBy2: true })
                       } else {
@@ -641,10 +876,34 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position23 + this.state.currentNumber
                     if (nextPosition == 64) {
                       this.setState({ position23: 64 })
-                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                      if (!this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
+                      this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                      if (this.state.winCountForTwo === 4) {
+                        this.setState({ isMovedBy2: true }, () => {
+                          this.setState({ turn2: false });
+                          if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player2"],
+                        }));
+                        this.setState({ isMovedBy2: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 2 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
                       }
                       // this.setState({ isMovedBy2: true })
                     } else if (nextPosition > 64) {
@@ -710,10 +969,34 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 58 + extraMoves
                       if (this.state.position24 == 12 && this.state.currentNumber == 6) {
                         this.setState({ position24: 64 })
-                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                        if (!this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
+                        this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                        if (this.state.winCountForTwo === 4) {
+                          this.setState({ isMovedBy2: true }, () => {
+                            this.setState({ turn2: false });
+                            if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player2"],
+                          }));
+                          this.setState({ isMovedBy2: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 2 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                          this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                          if (!this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          }
                         }
                         // this.setState({ isMovedBy2: true })
                       } else {
@@ -741,10 +1024,34 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position24 + this.state.currentNumber
                     if (nextPosition == 64) {
                       this.setState({ position24: 64 })
-                      this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
-                      this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
-                      if (!this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
+                      this.setState((prevState) => ({ winCountForTwo: prevState.winCountForTwo + 1 }));
+                      if (this.state.winCountForTwo === 4) {
+                        this.setState({ isMovedBy2: true }, () => {
+                          this.setState({ turn2: false });
+                          if (this.state.noOfPlayer === 3) this.setState({ turn4: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player2"],
+                        }));
+                        this.setState({ isMovedBy2: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 2 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy2: false }); this.setState({ whoseTurnToMove: 2 });
+                        this.setState({ turn1: false }); this.setState({ turn2: true }); this.setState({ turn3: false }); this.setState({ turn4: false });
+                        if (!this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        }
                       }
                       // this.setState({ isMovedBy2: true })
                     } else if (nextPosition > 64) {
@@ -822,12 +1129,37 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 64 + extraMoves
                       if (this.state.position31 == 25 && this.state.currentNumber == 6) {
                         this.setState({ position31: 70 })
-                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
+                        this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                        if (this.state.winCountForThree === 4) {
+                          this.setState({ isMovedBy3: true }, () => {
+                            this.setState({ turn3: false });
+                            if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player3"],
+                          }));
+                          this.setState({ isMovedBy3: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 3 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+
+                        else {
+                          this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                          if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          }
                         }
                         // this.setState({ isMovedBy3: true })
                       }
@@ -858,12 +1190,36 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position31 + this.state.currentNumber
                     if (nextPosition == 70) {
                       this.setState({ position31: 70 })
-                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
+                      this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                      if (this.state.winCountForThree === 4) {
+                        this.setState({ isMovedBy3: true }, () => {
+                          this.setState({ turn3: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player3"],
+                        }));
+                        this.setState({ isMovedBy3: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 3 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
                       }
                       // this.setState({ isMovedBy3: true })
                     } else if (nextPosition > 70) {
@@ -933,12 +1289,36 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 64 + extraMoves
                       if (this.state.position32 == 25 && this.state.currentNumber == 6) {
                         this.setState({ position32: 70 })
-                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
+                        this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                        if (this.state.winCountForThree === 4) {
+                          this.setState({ isMovedBy3: true }, () => {
+                            this.setState({ turn3: false });
+                            if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player3"],
+                          }));
+                          this.setState({ isMovedBy3: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 3 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                          if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          }
                         }
                         // this.setState({ isMovedBy3: true })
                       } else {
@@ -968,12 +1348,36 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position32 + this.state.currentNumber
                     if (nextPosition == 70) {
                       this.setState({ position32: 70 })
-                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
+                      this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                      if (this.state.winCountForThree === 4) {
+                        this.setState({ isMovedBy3: true }, () => {
+                          this.setState({ turn3: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player3"],
+                        }));
+                        this.setState({ isMovedBy3: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 3 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
                       }
                       // this.setState({ isMovedBy3: true })
                     } else if (nextPosition > 70) {
@@ -1043,12 +1447,36 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 64 + extraMoves
                       if (this.state.position33 == 25 && this.state.currentNumber == 6) {
                         this.setState({ position33: 70 })
-                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
+                        this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                        if (this.state.winCountForThree === 4) {
+                          this.setState({ isMovedBy3: true }, () => {
+                            this.setState({ turn3: false });
+                            if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player3"],
+                          }));
+                          this.setState({ isMovedBy3: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 3 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                          if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          }
                         }
                         // this.setState({ isMovedBy3: true })
                       }
@@ -1079,12 +1507,36 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position33 + this.state.currentNumber
                     if (nextPosition == 70) {
                       this.setState({ position33: 70 })
-                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
+                      this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                      if (this.state.winCountForThree === 4) {
+                        this.setState({ isMovedBy3: true }, () => {
+                          this.setState({ turn3: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player3"],
+                        }));
+                        this.setState({ isMovedBy3: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 3 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
                       }
                       // this.setState({ isMovedBy3: true })
                     } else if (nextPosition > 70) {
@@ -1154,12 +1606,36 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 64 + extraMoves
                       if (this.state.position34 == 25 && this.state.currentNumber == 6) {
                         this.setState({ position34: 70 })
-                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                          this.setState({ isMovedBy1: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
+                        this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                        if (this.state.winCountForThree === 4) {
+                          this.setState({ isMovedBy3: true }, () => {
+                            this.setState({ turn3: false });
+                            if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                            else this.setState({ turn4: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player3"],
+                          }));
+                          this.setState({ isMovedBy3: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 3 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                          if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                            this.setState({ isMovedBy1: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          }
                         }
                         // this.setState({ isMovedBy3: true })
                       }
@@ -1190,12 +1666,36 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position34 + this.state.currentNumber
                     if (nextPosition == 70) {
                       this.setState({ position34: 70 })
-                      this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
-                      if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
-                        this.setState({ isMovedBy1: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
+                      this.setState((prevState) => ({ winCountForThree: prevState.winCountForThree + 1 }));
+                      if (this.state.winCountForThree === 4) {
+                        this.setState({ isMovedBy3: true }, () => {
+                          this.setState({ turn3: false });
+                          if (this.state.noOfPlayer === 2) this.setState({ turn1: true });
+                          else this.setState({ turn4: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player3"],
+                        }));
+                        this.setState({ isMovedBy3: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 3 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy3: false }); this.setState({ whoseTurnToMove: 3 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: true }); this.setState({ turn4: false });
+                        if (this.state.noOfPlayer === 2 && !this.checkIfAnythingOpened(1)) {
+                          this.setState({ isMovedBy1: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        }
                       }
                       // this.setState({ isMovedBy3: true })
                     } else if (nextPosition > 70) {
@@ -1274,12 +1774,35 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 70 + extraMoves
                       if (this.state.position41 == 38 && this.state.currentNumber == 6) {
                         this.setState({ position41: 76 })
-                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                          this.setState({ isMovedBy3: true })
+                        this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                        if (this.state.winCountForFour === 4) {
+                          this.setState({ isMovedBy4: true }, () => {
+                            this.setState({ turn4: false });
+                            this.setState({ turn1: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player4"],
+                          }));
+                          this.setState({ isMovedBy4: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 4 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                          if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                            this.setState({ isMovedBy3: true })
+                          }
                         }
                         // this.setState({ isMovedBy4: true })
                       }
@@ -1310,12 +1833,35 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position41 + this.state.currentNumber
                     if (nextPosition == 76) {
                       this.setState({ position41: 76 })
-                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                        this.setState({ isMovedBy3: true })
+                      this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                      if (this.state.winCountForFour === 4) {
+                        this.setState({ isMovedBy4: true }, () => {
+                          this.setState({ turn4: false });
+                          this.setState({ turn1: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player4"],
+                        }));
+                        this.setState({ isMovedBy4: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 4 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
                       }
                       // this.setState({ isMovedBy4: true })
                     } else if (nextPosition > 76) {
@@ -1385,12 +1931,35 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 70 + extraMoves
                       if (this.state.position42 == 38 && this.state.currentNumber == 6) {
                         this.setState({ position42: 76 })
-                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                          this.setState({ isMovedBy3: true })
+                        this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                        if (this.state.winCountForFour === 4) {
+                          this.setState({ isMovedBy4: true }, () => {
+                            this.setState({ turn4: false });
+                            this.setState({ turn1: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player4"],
+                          }));
+                          this.setState({ isMovedBy4: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 4 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                          if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                            this.setState({ isMovedBy3: true })
+                          }
                         }
                         // this.setState({ isMovedBy4: true })
                       }
@@ -1421,12 +1990,35 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position42 + this.state.currentNumber
                     if (nextPosition == 76) {
                       this.setState({ position41: 76 })
-                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                        this.setState({ isMovedBy3: true })
+                      this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                      if (this.state.winCountForFour === 4) {
+                        this.setState({ isMovedBy4: true }, () => {
+                          this.setState({ turn4: false });
+                          this.setState({ turn1: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player4"],
+                        }));
+                        this.setState({ isMovedBy4: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 4 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
                       }
                       // this.setState({ isMovedBy4: true })
                     } else if (nextPosition > 76) {
@@ -1497,12 +2089,35 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 70 + extraMoves
                       if (this.state.position43 == 38 && this.state.currentNumber == 6) {
                         this.setState({ position43: 76 })
-                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                          this.setState({ isMovedBy3: true })
+                        this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                        if (this.state.winCountForFour === 4) {
+                          this.setState({ isMovedBy4: true }, () => {
+                            this.setState({ turn4: false });
+                            this.setState({ turn1: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player4"],
+                          }));
+                          this.setState({ isMovedBy4: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 4 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                          if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                            this.setState({ isMovedBy3: true })
+                          }
                         }
                         // this.setState({ isMovedBy4: true })
                       }
@@ -1534,12 +2149,35 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position43 + this.state.currentNumber
                     if (nextPosition == 76) {
                       this.setState({ position43: 76 })
-                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                        this.setState({ isMovedBy3: true })
+                      this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                      if (this.state.winCountForFour === 4) {
+                        this.setState({ isMovedBy4: true }, () => {
+                          this.setState({ turn4: false });
+                          this.setState({ turn1: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player4"],
+                        }));
+                        this.setState({ isMovedBy4: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 4 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
                       }
                       // this.setState({ isMovedBy4: true })
                     } else if (nextPosition > 76) {
@@ -1565,9 +2203,22 @@ export default class MultiplayerLudo extends React.Component {
                   }
                   else {
                     nextPosition = this.state.position43 + this.state.currentNumber
+                    let for1 = this.checkIfCutPossibleFor1(nextPosition);
+                    let for2 = this.checkIfCutPossibleFor2(nextPosition);
+                    let for3 = this.checkIfCutPossibleFor3(nextPosition)
                     this.setState({ position43: nextPosition })
-                    this.setState({ isMovedBy4: true })
-                    if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    if (for1 === true || for2 === true || for3 === true) {
+                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                        this.setState({ isMovedBy2: true })
+                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                        this.setState({ isMovedBy3: true })
+                      }
+                    } else {
+                      this.setState({ isMovedBy4: true })
+                      if (this.state.currentNumber === 6) this.setState({ turn4: true })
+                    }
                   }
                 }
               }
@@ -1609,12 +2260,35 @@ export default class MultiplayerLudo extends React.Component {
                       newPosition = 70 + extraMoves
                       if (this.state.position44 == 38 && this.state.currentNumber == 6) {
                         this.setState({ position44: 76 })
-                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                          this.setState({ isMovedBy2: true })
-                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                          this.setState({ isMovedBy3: true })
+                        this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                        if (this.state.winCountForFour === 4) {
+                          this.setState({ isMovedBy4: true }, () => {
+                            this.setState({ turn4: false });
+                            this.setState({ turn1: true });
+                          })
+                          this.setState((prevState) => ({
+                            winners: [...prevState.winners, "player4"],
+                          }));
+                          this.setState({ isMovedBy4: false }, () => {
+                            this.setState({ turn1: false });
+                            this.setState({ turn3: false }, () => {
+                              console.log(this.state.turn2); // This will log the updated state
+                              this.setState({ turn2: false });
+                              this.setState({ turn4: false });
+                              this.setState({ whoWon: 4 });
+                              this.setState({ showWinPage: true });
+                            });
+                          });
+                          console.log("Stop the game")
+                        }
+                        else {
+                          this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                          this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                          if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                            this.setState({ isMovedBy2: true })
+                          } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                            this.setState({ isMovedBy3: true })
+                          }
                         }
                         // this.setState({ isMovedBy4: true })
                       }
@@ -1645,12 +2319,35 @@ export default class MultiplayerLudo extends React.Component {
                     nextPosition = this.state.position44 + this.state.currentNumber
                     if (nextPosition == 76) {
                       this.setState({ position44: 76 })
-                      this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
-                      this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
-                      if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
-                        this.setState({ isMovedBy2: true })
-                      } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
-                        this.setState({ isMovedBy3: true })
+                      this.setState((prevState) => ({ winCountForFour: prevState.winCountForFour + 1 }));
+                      if (this.state.winCountForFour === 4) {
+                        this.setState({ isMovedBy4: true }, () => {
+                          this.setState({ turn4: false });
+                          this.setState({ turn1: true });
+                        })
+                        this.setState((prevState) => ({
+                          winners: [...prevState.winners, "player4"],
+                        }));
+                        this.setState({ isMovedBy4: false }, () => {
+                          this.setState({ turn1: false });
+                          this.setState({ turn3: false }, () => {
+                            console.log(this.state.turn2); // This will log the updated state
+                            this.setState({ turn2: false });
+                            this.setState({ turn4: false });
+                            this.setState({ whoWon: 4 });
+                            this.setState({ showWinPage: true });
+                          });
+                        });
+                        console.log("Stop the game")
+                      }
+                      else {
+                        this.setState({ isMovedBy4: false }); this.setState({ whoseTurnToMove: 4 });
+                        this.setState({ turn1: false }); this.setState({ turn2: false }); this.setState({ turn3: false }); this.setState({ turn4: true });
+                        if (this.state.noOfPlayer === 3 && !this.checkIfAnythingOpened(2)) {
+                          this.setState({ isMovedBy2: true })
+                        } else if (this.state.noOfPlayer === 4 && !this.checkIfAnythingOpened(3)) {
+                          this.setState({ isMovedBy3: true })
+                        }
                       }
                       // this.setState({ isMovedBy4: true })
                     } else if (nextPosition > 76) {
@@ -2806,8 +3503,20 @@ export default class MultiplayerLudo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        {this.state.showWinPage ? <View>
+          <View style={styles.container1}>
+            <Image style={{ width: '20%', height: '20%' }} source={require('../assets/king_crown-removebg-preview.png')}></Image>
+            <Text style={{ color: "white", fontSize: 28, fontWeight: 'bold', fontStyle: "italic", paddingTop: 25 }}>!!!Congratulations!!!</Text>
+            <Text style={{ color: "white", fontSize: 28, fontWeight: 'bold', fontStyle: "italic", paddingTop: 25 }}>Player {this.state.whoWon} Won</Text>
+            <TouchableOpacity style={styles.startButton} onPress={() => this.props.navigation.navigate("menu")}>
+              <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>Exit</Text>
+            </TouchableOpacity>
+          </View>
+        </View> : null}
+
+
         <Image style={{ position: "absolute", width: "100%", height: "100%" }} source={require('../assets/bgimg.jpg')} />
-        <View style={styles.wholeSetup}>
+        {!this.state.showWinPage?<View style={styles.wholeSetup}>
           {/* =============================== Upper Part ============================= */}
           <View style={row.Style}>
             <View>
@@ -3525,7 +4234,7 @@ export default class MultiplayerLudo extends React.Component {
           <View style={styles.message}>
             <Text style={{ color: "red", fontSize: 30, marginLeft: 60, marginTop: 20 }}> {this.state.turnMessage} {this.state.moveMessage} </Text>
           </View>
-        </View>
+        </View>:null}
       </View>
     );
   }
